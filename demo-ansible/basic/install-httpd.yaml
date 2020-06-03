@@ -3,7 +3,7 @@
   name: install apache 
   hosts: web01.labs.corp
   user: root
-  sudo: true
+  #sudo: true
   vars:
 
 
