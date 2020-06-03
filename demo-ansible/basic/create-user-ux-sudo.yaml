@@ -33,5 +33,6 @@
         register: sudo_file
 
       - name: Change name 
-        shell: /etc/sudoers.d/user-sudo.j2 /etc/sudoers.d/"{{ nome }}"
+        shell: 'mv /etc/sudoers.d/user-sudo.j2 /etc/sudoers.d/"{{ nome }}"'
         when: sudo_file.stat.exists
+
