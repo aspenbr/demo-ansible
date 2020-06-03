@@ -1,0 +1,37 @@
+---
+-
+   name: criacao de usuario por lote 
+   hosts: all 
+   vars: 
+     nome: "{{ s_nome }}"
+     senha: "{{ s_senha }}"
+     grupo: "{{ s_grupo }}"
+   tasks: 
+   
+   
+   
+      - name: criacao de grupo 
+        group: 
+          name: "{{ grupo }}"
+          state: present 
+
+      - name: criacao de usuario 
+        user: 
+          name: "{{ nome }}" 
+          state: present 
+          password: "{{ senha | password_hash ('sha512') }}" 
+
+
+      - name: copia file 
+        template: 
+             src: templates/user-sudo.j2
+             dest: /etc/sudoers.d/user-sudo.j2
+
+      - name: change nome file 
+        stat: 
+          path: /etc/sudoers.d/user-sudo.j2
+          register: sudo_stat
+
+      - name: Change name 
+        shell: /etc/sudoers.d/user-sudo.j2 /etc/sudoers.d/"{{ nome }}"
+        when: sudo_stat.stat.exists
