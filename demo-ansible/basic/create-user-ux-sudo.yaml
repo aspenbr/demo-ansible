@@ -30,8 +30,8 @@
       - name: change nome file 
         stat: 
           path: /etc/sudoers.d/user-sudo.j2
-          register: sudo_stat
+        register: sudo_file
 
       - name: Change name 
         shell: /etc/sudoers.d/user-sudo.j2 /etc/sudoers.d/"{{ nome }}"
-        when: sudo_stat.stat.exists
+        when: sudo_file.stat.exists
