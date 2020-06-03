@@ -1,0 +1,25 @@
+---
+-
+   name: criacao de usuario por lote 
+   hosts: all 
+   vars: 
+     nome: "{{ s_nome }}"
+     senha: "{{ s_senha }}"
+     grupo: "{{ s_grupo }}"
+   tasks: 
+   
+   
+   
+      - name: criacao de grupo 
+        group: 
+          name: "{{ grupo }}"
+          state: present 
+
+      - name: criacao de usuario 
+        user: 
+          name: "{{ nome }}" 
+          state: present 
+          password: "{{ senha | password_hash ('sha512') }}" 
+
+
+

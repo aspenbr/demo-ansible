@@ -1,0 +1,37 @@
+---
+   - name: criacao do grupos dmz
+     group: 
+       name: "{{ item.grupo }}"
+       state: "{{ item.estado }}"
+     with_items: 
+       - "{{ funcionario }}"
+     when: item.competencia == "ux" and inventory_hostname in groups ["dmz"] 
+   
+   - name: criacao do grupo banco
+     group: 
+       name: "{{ item.grupo }}"
+       state: "{{ item.estado }}"
+     with_items:
+       - "{{funcionario}}" 
+     when: item.competencia == "dba" and inventory_hostname in groups ["producao"] 
+        
+
+   - name: criacao do usuario ux
+     user: 
+       name: "{{ item.nome }}"
+       password: "{{item.senha | password_hash ('sha512')}}"
+       state: "{{ item.estado}}"
+     with_items: 
+       - "{{ funcionario }}"
+     when: item.competencia == "ux" and inventory_hostname in groups ["dmz"] 
+
+   - name: criacao do usuario producao 
+     user: 
+        name: "{{ item.nome }}"
+        password: "{{ item. senha | password_hash ('sha512')}}"
+        state: "{{ item.estado}}"
+     with_items: 
+        - "{{ funcionario }}"
+     when: item.competencia == "dba" and inventory_hostname in groups ["producao"]     
+       
+# tasks file for roles/make_user

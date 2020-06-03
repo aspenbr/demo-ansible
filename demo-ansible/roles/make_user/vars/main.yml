@@ -1,0 +1,14 @@
+---
+funcionario: 
+     - nome: joao 
+       competencia: ux  
+       grupo: desenvolvimento
+       estado: present 
+       senha: cachorro 
+
+     - nome: alecrim 
+       competencia: dba 
+       grupo: banco 
+       estado: present 
+       senha: cachorra 
+# vars file for roles/make_user
